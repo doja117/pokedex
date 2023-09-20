@@ -2,6 +2,7 @@ package main
 
 import "os"
 
-func CommandExit() {
+func CommandExit() error {
 	os.Exit(0)
+	return nil
 }
