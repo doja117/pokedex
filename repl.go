@@ -13,11 +13,44 @@ func StartRepl() {
 		fmt.Print(" > ")
 		scanner.Scan()
 		text := scanner.Text()
+		if len(text) == 0 {
+			continue
+		}
 		cleaned := CleanInput(text)
-		fmt.Println("echo ", cleaned)
+		commandName := cleaned[0]
+		availableCommands := getCommands()
+		command, ok := availableCommands[commandName]
+		if ok == false {
+			fmt.Println("Invalid Command")
+			continue
+		} else {
+			command.callback()
+		}
+
 	}
+
 }
 
+type cliCommand struct {
+	name        string
+	description string
+	callback    func()
+}
+
+func getCommands() map[string]cliCommand {
+	return map[string]cliCommand{
+		"help": {
+			name:        "help",
+			description: "prints the help menu",
+			callback:    CommandHelp,
+		},
+		"exit": {
+			name:        "exit",
+			description: "exits the program",
+			callback:    CommandExit,
+		},
+	}
+}
 func CleanInput(s string) []string {
 	lowered := strings.ToLower(s)
 	words := strings.Fields(lowered)
