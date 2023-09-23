@@ -5,12 +5,13 @@ import (
 	"fmt"
 )
 
+var url string = "https://pokeapi.co/api/v2/location-area"
+
 func getJSONData(url string) (ResponseData, error) {
 	r, err := ReturnJSONData(url)
 	if err != nil {
 		return ResponseData{}, errors.New(fmt.Sprintf("Error occured ", err))
 	} else {
-
 		for _, v := range r.Results {
 			fmt.Println(v.Name)
 		}
@@ -20,8 +21,9 @@ func getJSONData(url string) (ResponseData, error) {
 
 func CommandMap() error {
 	//fmt.Println("function called")
-	url := "https://pokeapi.co/api/v2/location-area"
+
 	r, err := getJSONData(url)
+	url = r.Next
 	if err == nil {
 		for _, v := range r.Results {
 			fmt.Println(v.Name)
@@ -30,4 +32,23 @@ func CommandMap() error {
 	} else {
 		return err
 	}
+}
+
+func CommandMapB() error {
+	r, err := getJSONData(url)
+	if err == nil {
+		str, ok := r.Previous.(string)
+		if ok {
+			if str != "" {
+				url = str
+				fmt.Println(url, str)
+				CommandMap()
+			}
+		} else {
+			return errors.New("Wrong data found")
+		}
+
+	}
+	return err
+
 }

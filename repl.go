@@ -54,6 +54,11 @@ func getCommands() map[string]cliCommand {
 			description: "lists available 20 location",
 			callback:    CommandMap,
 		},
+		"mapb": {
+			name:        "mapb",
+			description: "lists previous 20 location",
+			callback:    CommandMapB,
+		},
 	}
 }
 func CleanInput(s string) []string {
