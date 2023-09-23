@@ -49,6 +49,11 @@ func getCommands() map[string]cliCommand {
 			description: "exits the program",
 			callback:    CommandExit,
 		},
+		"map": {
+			name:        "map",
+			description: "lists available 20 location",
+			callback:    CommandMap,
+		},
 	}
 }
 func CleanInput(s string) []string {

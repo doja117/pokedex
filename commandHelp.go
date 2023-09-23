@@ -7,8 +7,7 @@ func CommandHelp() error {
 	fmt.Println("Here are your avialable commands")
 	comamnds := getCommands()
 	for key, _ := range comamnds {
-		fmt.Println(" - ", key)
-		fmt.Println(comamnds[key].description)
+		fmt.Printf(" - %s\t%s\n", key, comamnds[key].description)
 	}
 	fmt.Println("")
 	return nil
